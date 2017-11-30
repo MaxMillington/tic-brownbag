@@ -7,6 +7,13 @@ ol, ul {
   padding-left: 30px;
 }
 
+.game {
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .board-row:after {
   clear: both;
   content: "";

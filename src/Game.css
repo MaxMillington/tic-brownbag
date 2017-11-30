@@ -16,7 +16,7 @@ ol, ul {
 }
 
 .weather-container {
-  padding-bottom: 50px;
+  padding-bottom: 10px;
   height: 20px;
 }
 
@@ -61,4 +61,9 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+.status-message {
+  height: 20px;
+  padding-bottom: 30px;
 }

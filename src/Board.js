@@ -4,7 +4,12 @@ import PropTypes from 'prop-types'
 import './Game.css'
 
 class Board extends Component {
-  renderSquare(i) {
+  constructor(props) {
+    super(props)
+    this.state = { status: '' }
+  }
+
+  renderSquare = (i) => {
     return (
       <Square
         value={this.props.squares[i]}
@@ -13,9 +18,24 @@ class Board extends Component {
     )
   }
 
+  componentWillMount() {
+    console.log('will mount')
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('receiving new props')
+
+    if(nextProps.weatherByCity) {
+      const status = nextProps.weatherByCity.temp > 70 ? `It's warm yo` : 'Brrr it be cold'
+      this.setState({ status })
+    }
+  }
+
   render() {
+    console.log('rendering')
     return (
       <div>
+        <div className="status-message">{this.state.status}</div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -39,7 +59,8 @@ class Board extends Component {
 
 Board.propTypes = {
   squares: PropTypes.array,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  weatherByCity: PropTypes.object
 }
 
 export default Board

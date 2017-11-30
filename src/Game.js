@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import axios from 'axios'
 import Board from './Board'
 import calculateWinner from './calculateWinner'
-import './Game.css';
+import './Game.css'
 
 class Game extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       history: [
         {
@@ -13,14 +14,32 @@ class Game extends Component {
         }
       ],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
     };
   }
 
-  handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
+  componentDidMount() {
+      axios.get('http://api.openweathermap.org/data/2.5/forecast?id=5392171&APPID=949819d84cdb88549646b361edff11e9')
+      .then((response) => {
+        const tempInFarenheit = (response.data.list[0].main.temp) * (9/5) - 459.67
+        const weatherForCity = {
+          cityName: response.data.city.name,
+          temp: Math.round(tempInFarenheit),
+          weather: response.data.list[0].weather[0].description
+        }
+
+        this.setState({ weatherForCity: weatherForCity })
+      })
+      .catch((error) => {
+        console.log('darn', error)
+      })
+  }
+
+
+  handleClick = (i) => {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1)
+    const current = history[history.length - 1]
+    const squares = current.squares.slice()
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -36,7 +55,7 @@ class Game extends Component {
     });
   }
 
-  jumpTo(step) {
+  jumpTo = (step) => {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0
@@ -44,42 +63,51 @@ class Game extends Component {
   }
 
   render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const history = this.state.history
+    const current = history[this.state.stepNumber]
+    const winner = calculateWinner(current.squares)
 
     const moves = history.map((step, move) => {
-      const desc = move ?
-        'Go to move #' + move :
-        'Go to game start';
+      const desc = move ? `Go to move # ${move}` : 'Go to game start'
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
-      );
-    });
+      )
+    })
 
-    let status;
+    let status
     if (winner) {
-      status = "Winner: " + winner;
+      status = `Winner: ${winner}`
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`
+    }
+
+    let weatherMessage
+    if (this.state.weatherForCity) {
+      const weatherForCity = this.state.weatherForCity
+      weatherMessage = `Today's weather in ${weatherForCity.cityName} is ${weatherForCity.weather} and ${weatherForCity.temp} degrees`
     }
 
     return (
       <div className="game">
-        <div className="game-board">
-          <Board
-            squares={current.squares}
-            onClick={i => this.handleClick(i)}
-          />
+        <div className="weather-container">
+          {weatherMessage}
         </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
+        <div className="game-container">
+          <div className="game-board">
+            <Board
+              squares={current.squares}
+              onClick={(i) => this.handleClick(i)}
+            />
+          </div>
+          <div className="game-info">
+            <div>{status}</div>
+            <ol>{moves}</ol>
+          </div>
         </div>
       </div>
-    );
+    )
   }
 }
 

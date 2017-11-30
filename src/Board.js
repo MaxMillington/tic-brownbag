@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Square from './Square'
-import './Game.css';
+import PropTypes from 'prop-types'
+import './Game.css'
 
 class Board extends Component {
   renderSquare(i) {
@@ -9,7 +10,7 @@ class Board extends Component {
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
-    );
+    )
   }
 
   render() {
@@ -31,8 +32,14 @@ class Board extends Component {
           {this.renderSquare(8)}
         </div>
       </div>
-    );
+    )
   }
+}
+
+
+Board.propTypes = {
+  squares: PropTypes.array,
+  onClick: PropTypes.func
 }
 
 export default Board

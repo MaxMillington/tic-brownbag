@@ -15,7 +15,7 @@ const calculateWinner = (squares) => {
       return squares[a];
     }
   }
-  return null;
+  return null
 }
 
 export default calculateWinner

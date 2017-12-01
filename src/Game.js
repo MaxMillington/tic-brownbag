@@ -16,18 +16,17 @@ class Game extends Component {
       ],
       stepNumber: 0,
       xIsNext: true,
-      doSomethingElse: false
+      doSomethingElse: false,
+      weatherCity: '5392171'
     };
   }
 
   componentDidMount() {
     console.log('Game did mount')
-    this.getWeather()
-    setInterval(this.getWeather, 10000)
   }
 
   getWeather = () => {
-    axios.get('http://api.openweathermap.org/data/2.5/forecast?id=5392171&APPID=949819d84cdb88549646b361edff11e9')
+    axios.get(`http://api.openweathermap.org/data/2.5/forecast?id=${this.state.weatherCity}&APPID=949819d84cdb88549646b361edff11e9`)
       .then((response) => {
         console.log('response', response)
         const tempInFarenheit = (response.data.list[0].main.temp) * (9/5) - 459.67
@@ -74,6 +73,10 @@ class Game extends Component {
     this.setState({ doSomethingElse: !this.state.doSomethingElse})
   }
 
+  updateWeatherCity = (e) => {
+    this.setState({ weatherCity: e.target.value })
+  }
+
   render() {
     console.log('Game rendered')
     const history = this.state.history
@@ -104,6 +107,9 @@ class Game extends Component {
 
     return (
       <div className="game">
+        <div className="top-section">What city do you want weather from?</div>
+        <input onChange={this.updateWeatherCity}></input>
+        <button className="game-button" onClick={this.getWeather}>Get Weather!</button>
         <div className="weather-container">
           {weatherMessage}
         </div>
@@ -122,7 +128,7 @@ class Game extends Component {
           </div>
         </div>
         <div className="something-else-container">
-            <button onClick={this.doSomethingElse}>Do Something Else</button>
+            <button className="game-button" onClick={this.doSomethingElse}>Do Something Else</button>
         </div>
       </div>
     )

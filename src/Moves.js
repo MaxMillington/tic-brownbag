@@ -7,7 +7,7 @@ const Moves = (props) => {
     const desc = move ? `Go to move # ${move}` : 'Go to game start'
     return (
       <li key={move}>
-        <button onClick={() => props.jumpTo(move)}>{desc}</button>
+        <button className="game-button" onClick={() => props.jumpTo(move)}>{desc}</button>
       </li>
     )
   })

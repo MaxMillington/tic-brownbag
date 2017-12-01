@@ -13,6 +13,7 @@ class Board extends Component {
   renderSquare = (i) => {
     return (
       <Square
+        index={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -21,7 +22,6 @@ class Board extends Component {
 
   componentDidMount() {
     console.log('Board did mount')
-    this.interval = setInterval(() => { console.log('party') }, 1000)
   }
 
   componentWillMount() {
@@ -30,25 +30,15 @@ class Board extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('Board receiving new props')
-
-    if(nextProps.weatherByCity) {
-      const status = nextProps.weatherByCity.temp > 70 ? `It's warm yo` : 'Brrr it be cold'
-      this.setState({ status })
-    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log('Board is wondering if it should update')
-    if(this.state.status === nextState.status) {
-      console.log('these states are the same')
-      return false
-    }
     return true
   }
 
   componentWillUnmount() {
     console.log('Board about to unmount')
-    clearInterval(this.interval)
   }
 
   render() {

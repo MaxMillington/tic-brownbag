@@ -16,7 +16,7 @@ ol, ul {
 }
 
 .weather-container {
-  padding-bottom: 10px;
+  padding: 10px 0;
   height: 20px;
 }
 
@@ -76,3 +76,32 @@ ol, ul {
   height: 150px;
   width: 100px;
 }
+
+.top-section {
+  padding-bottom: 15px;
+}
+
+/*.game-button {*/
+  /*border: none;*/
+  /*font-family: inherit;*/
+  /*color: #fff;*/
+  /*background: green;*/
+  /*cursor: pointer;*/
+  /*padding: 10px 40px;*/
+  /*display: inline-block;*/
+  /*margin: 10px 20px;*/
+  /*text-transform: uppercase;*/
+  /*letter-spacing: 1px;*/
+  /*font-weight: 700;*/
+  /*outline: none;*/
+  /*position: relative;*/
+  /*-webkit-transition: all 0.3s;*/
+  /*-moz-transition: all 0.3s;*/
+  /*transition: all 0.3s;*/
+
+/*}*/
+
+/*.game-button:hover {*/
+  /*color: #0e83cd;*/
+  /*background: orange;*/
+/*}*/

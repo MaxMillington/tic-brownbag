@@ -47,7 +47,7 @@ All other lifecyle methods are defined relative to the render().
 
 Invoked just once, before the initial rendering occurs. One thing that is unique to `componentWillMount()` is that if you call `setState()` within the function it will not re-render the page. This is because it has been called before the initial `render()` and React is set up to recognize this and only render the page once. `componentWillMount()` should really only be used if you wanted to run a small bit of code before the `render()`. 
 
-There is *almost no reason to use `componentWillMount()` at all*. For React apps that do not use ES6 classes, you would use `componentWillMount()` as the constructor. However, if you are using es6 classes and a constructor to set state and properties on the object (as you should), `componentWillMount()` just serves to cause confusion. In fact, we should discourage using it since dispatching actions that make ajax requests can lead to problems. If you need to dispatch an action that does not make an ajax request, and want to do it during the initial mounting, then put them in `componentWillMount()`.
+There is *almost no reason to use `componentWillMount()` at all*. You don't have access to the DOM or `refs`. For React apps that do not use ES6 classes, you would use `componentWillMount()` as the constructor. However, if you are using es6 classes and a constructor to set state and properties on the object (as you should), `componentWillMount()` just serves to cause confusion. In fact, we should discourage using it since dispatching actions that make ajax requests can lead to problems. If you need to dispatch an action that does not make an ajax request, and want to do it during the initial mounting, then put them in `componentWillMount()`.
 
 ## componentDidMount()
 
@@ -78,7 +78,7 @@ componentWillReceiveProps: (nextProps) => {
   });
 }
 ```
-Note that because this is called before the render(), calling this.SetState() will not trigger an additional render.
+Note that because this is called before the `render()`, calling `this.SetState()` will not trigger an additional render.
 
 ## componentWillUnmount() 
 

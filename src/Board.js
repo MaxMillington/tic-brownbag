@@ -37,6 +37,15 @@ class Board extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Board is wondering if it should update')
+    if(this.state.status === nextState.status) {
+      console.log('these states are the same')
+      return false
+    }
+    return true
+  }
+
   componentWillUnmount() {
     console.log('Board about to unmount')
     clearInterval(this.interval)

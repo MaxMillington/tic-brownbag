@@ -23,7 +23,7 @@ class Game extends Component {
   componentDidMount() {
     console.log('Game did mount')
     this.getWeather()
-    setInterval(this.getWeather, 1000)
+    setInterval(this.getWeather, 10000)
   }
 
   getWeather = () => {

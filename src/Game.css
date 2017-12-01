@@ -67,3 +67,12 @@ ol, ul {
   height: 20px;
   padding-bottom: 30px;
 }
+
+.something-else-container {
+  padding-top: 30px;
+}
+
+.something-else-message {
+  height: 150px;
+  width: 100px;
+}

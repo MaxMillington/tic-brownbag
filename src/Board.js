@@ -6,6 +6,7 @@ import './Game.css'
 class Board extends Component {
   constructor(props) {
     super(props)
+    this.interval = null
     this.state = { status: '' }
   }
 
@@ -18,12 +19,17 @@ class Board extends Component {
     )
   }
 
+  componentDidMount() {
+    console.log('Board did mount')
+    this.interval = setInterval(() => { console.log('party') }, 1000)
+  }
+
   componentWillMount() {
-    console.log('will mount')
+    console.log('Board will mount')
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('receiving new props')
+    console.log('Board receiving new props')
 
     if(nextProps.weatherByCity) {
       const status = nextProps.weatherByCity.temp > 70 ? `It's warm yo` : 'Brrr it be cold'
@@ -31,8 +37,13 @@ class Board extends Component {
     }
   }
 
+  componentWillUnmount() {
+    console.log('Board about to unmount')
+    clearInterval(this.interval)
+  }
+
   render() {
-    console.log('rendering')
+    console.log('Board rendered')
     return (
       <div>
         <div className="status-message">{this.state.status}</div>

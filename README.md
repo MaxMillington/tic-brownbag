@@ -32,7 +32,7 @@ The React Lifecycle methods are run in the following order:
 ##### Unmounting
  - ComponentWillUnmount
 
-These methods can be invoked after calling `React.createClass()` and providing a specified object, or by creating a class using a plain JS class. 
+These methods can be invoked after calling `React.createClass()` and providing a specified object, or by creating a class using a plain JS class. They are not fired when utilizing functional React components.
 
 
 ## render()

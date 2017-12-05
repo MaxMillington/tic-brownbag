@@ -28,7 +28,6 @@ class Game extends Component {
   getWeather = () => {
     axios.get(`http://api.openweathermap.org/data/2.5/forecast?id=${this.state.weatherCity}&APPID=949819d84cdb88549646b361edff11e9`)
       .then((response) => {
-        console.log('response', response)
         const tempInFarenheit = (response.data.list[0].main.temp) * (9/5) - 459.67
         const weatherForCity = {
           cityName: response.data.city.name,
